@@ -1,0 +1,638 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+  <xs:element name="SAHAM">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="Agences"/>
+        <xs:element ref="Familles"/>
+        <xs:element ref="Assurances"/>
+        <xs:element ref="Clients"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Agences">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="Agence" maxOccurs="unbounded"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Agence">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="Agence-Nom" type="xs:string"/>
+        <xs:element name="Agence-Adresse" type="xs:string"/>
+        <xs:element name="mail" >
+        <xs:simpleType>
+        <xs:restriction  base="xs:string">
+        <xs:pattern value="([A-Za-z0-9]+(_|.)*[A-Za-z0-9]*@[A-Za-z]+.[A-Za-z]+)?"/>
+        </xs:restriction>
+        </xs:simpleType>        
+        </xs:element>
+        <xs:element name="mobile"  minOccurs="0" maxOccurs="3">
+        <xs:simpleType>
+        <xs:restriction base="xs:string">
+        <xs:pattern value="[ ]*0[5-7][ ]*[0-9][ ]*[0-9][ ]*[0-9][ ]*[0-9][ ]*[0-9][ ]*[0-9][ ]*[0-9][ ]*[0-9][ ]*"/>
+        </xs:restriction>
+        </xs:simpleType>
+        </xs:element>
+        <xs:element name="Ville" type="xs:string"/>
+        <xs:element name="Longtitude" type="xs:string" minOccurs="0"/>
+        <xs:element name="Latitude" type="xs:string" minOccurs="0"/>
+        <xs:element ref="Horaires" minOccurs="0"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Horaires">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="Horaire" maxOccurs="3"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Horaire">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="firstPeriod"/>
+        <xs:element ref="secondPeriod" minOccurs="0"/>
+      </xs:sequence>
+      <xs:attribute name="periode" type="xs:string" use="required"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="firstPeriod">
+    <xs:complexType mixed="true">
+      <xs:attribute name="end" type="xs:string" use="required"/>
+      <xs:attribute name="start" type="xs:string" use="required"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="secondPeriod">
+    <xs:complexType mixed="true">
+      <xs:attribute name="end" type="xs:string" use="required"/>
+      <xs:attribute name="start" type="xs:string" use="required"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Familles">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="family" maxOccurs="unbounded"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="family">
+    <xs:complexType mixed="true">
+      <xs:attribute name="id"  use="required">
+      <xs:simpleType>
+      <xs:restriction base="xs:string">
+      <xs:pattern value="f[0-9]" />
+      </xs:restriction>
+      </xs:simpleType>      
+      </xs:attribute>
+      <xs:attribute name="name" type="xs:string" use="required"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Assurances">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="Assur-Comp"/>
+        <xs:element ref="Assur" maxOccurs="unbounded"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Assur-Comp">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="Assur-Partielle-Offre" maxOccurs="unbounded"/>
+      </xs:sequence>
+      <xs:attribute name="codeF" type="xs:string" use="required"/>
+      <xs:attribute name="famille" type="xs:string" use="required"/>
+      <xs:attribute name="id" use="required">
+      <xs:simpleType>
+      <xs:restriction base="xs:string">
+      <xs:pattern value="f[0-9]n[0-9]" />
+      </xs:restriction>
+      </xs:simpleType>      
+      </xs:attribute>
+      <xs:attribute name="name" type="xs:string" use="required"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Assur-Partielle-Offre">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="Descp" type="xs:string"/>
+        <xs:element ref="Packet-Garanties"/>
+        <xs:element ref="Packet-Avantages"/>
+      </xs:sequence>
+      <xs:attribute name="id" use="required">
+       <xs:simpleType>
+       <xs:restriction base="xs:string">
+       <xs:pattern value="f[0-9]n[0-9]p[0-9]"/>
+       </xs:restriction>
+       </xs:simpleType>     
+      </xs:attribute>
+      <xs:attribute name="titre" type="xs:string" use="required"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Packet-Garanties">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="Garantie" maxOccurs="unbounded"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Garantie">
+    <xs:complexType mixed="true">
+      <xs:attribute name="id"  use="required">
+      <xs:simpleType>
+      <xs:restriction base="xs:string">
+      <xs:pattern value="f[0-9]n[0-9](p[0-9])?g[0-9]+"/>
+      </xs:restriction>
+      </xs:simpleType>
+      </xs:attribute>
+      <xs:attribute name="titre" type="xs:string" use="required"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Packet-Avantages">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="Avantage" maxOccurs="unbounded"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Avantage">
+    <xs:complexType mixed="true">
+      <xs:attribute name="id"  use="required">
+      <xs:simpleType>
+      <xs:restriction base="xs:string">
+      <xs:pattern value="f[0-9]n[0-9]+(p[0-9])?a[0-9]+"/>
+      </xs:restriction>
+      </xs:simpleType>
+      </xs:attribute>
+      <xs:attribute name="titre" type="xs:string" use="required"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Assur">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="Descp" type="xs:string"/>
+        <xs:element ref="Packet-Garanties" minOccurs="0"/>
+        <xs:element ref="Packet-Avantages"/>
+      </xs:sequence>
+      <xs:attribute name="codeF" type="xs:string" use="required"/>
+      <xs:attribute name="famille" type="xs:string" use="required"/>
+      <xs:attribute name="id" type="xs:string" use="required"/>
+      <xs:attribute name="name" type="xs:string" use="required"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Clients">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="Client" maxOccurs="unbounded"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Client">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="date-Naiss" >
+         <xs:simpleType>
+         <xs:restriction base="xs:date">
+            <xs:maxExclusive value="2000-06-26"/>
+           </xs:restriction>      
+      </xs:simpleType>        
+        </xs:element>
+        <xs:element name="nom">
+        <xs:simpleType>
+        <xs:restriction base="xs:string">
+        <xs:pattern value="[A-Za-z][A-Za-z][A-Za-z]+"/>
+        </xs:restriction>
+        </xs:simpleType>
+        </xs:element>
+        <xs:element name="Prenom">
+        <xs:simpleType>
+        <xs:restriction base="xs:string">
+        <xs:pattern value="[A-Za-z][A-Za-z][A-Za-z]+"/>
+        </xs:restriction>
+        </xs:simpleType>
+        </xs:element>
+        <xs:element name="Sexe" >
+        <xs:simpleType>
+        <xs:restriction base="xs:string">
+        <xs:pattern value="([M]|[m])|([F]|[f])"/>
+        </xs:restriction>
+        </xs:simpleType>
+        </xs:element>
+        <xs:element name="Code-Postal">
+        <xs:simpleType>
+        <xs:restriction base="xs:string">
+        <xs:pattern value="[1-9][0-9][0-9][0-9][0-9]"/>
+        </xs:restriction>
+        </xs:simpleType>
+        </xs:element>
+        <xs:element ref="Assurances-offertes"/>
+      </xs:sequence>
+      <xs:attribute name="CIN"  use="required">
+      <xs:simpleType>
+      <xs:restriction base="xs:string">
+      <xs:pattern value="[A-Z][A-Z0-9]?[0-9]+"/>
+      </xs:restriction>
+      </xs:simpleType>
+      </xs:attribute>
+      <xs:attribute name="Num_Police" type="xs:string" use="required"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Assurances-offertes">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="Assur-A" minOccurs="0"/>
+        <xs:element ref="Assur-H" minOccurs="0"/>
+        <xs:element ref="Assur-O" minOccurs="0"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Assur-H">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="Nature-Habitation">
+        <xs:simpleType>
+        <xs:restriction base="xs:string">
+        <xs:pattern value="[Vv][Ii][Ll][Ll][Aa]|[Aa][Pp][Pp][Aa][Rr][Tt][Ee][Mm][Ee][Nn][Tt]"/>
+        </xs:restriction>
+        </xs:simpleType>
+        </xs:element>
+        <xs:element name="Type-Residence">
+        <xs:simpleType>
+        <xs:restriction base="xs:string">
+       <xs:pattern value="[Pp][Rr][Ii][Nn][Cc][Ii][Pp][Aa][Ll][Ee]*|[Ss][Ee][Cc][Oo][Nn][Dd][Aa][Ii][Rr][Ee]" />
+        </xs:restriction>
+        </xs:simpleType>
+        </xs:element>
+        <xs:element ref="Valeur-Batiment"/>
+        <xs:element ref="Valeur-Contenu"/>
+        <xs:element ref="Garanties-Client"/>
+      </xs:sequence>
+      <xs:attribute name="id"  use="required">
+      <xs:simpleType>
+      <xs:restriction base="xs:string">
+      <xs:pattern value="f2n4"/>
+      </xs:restriction>
+      </xs:simpleType>
+      </xs:attribute>
+      <xs:attribute name="nom" type="xs:string" use="required"/>
+      <xs:attribute name="date-effet" type="xs:date" use="required"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Valeur-Batiment">
+    <xs:complexType mixed="true">
+      <xs:attribute name="devise"  use="required">
+      <xs:simpleType>
+     <xs:restriction base="xs:string">
+     <xs:pattern value="MAD"/>
+     </xs:restriction>
+     </xs:simpleType> 
+      </xs:attribute>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Valeur-Contenu">
+    <xs:complexType mixed="true">
+      <xs:attribute name="devise"  use="required">
+      <xs:simpleType>
+     <xs:restriction base="xs:string">
+     <xs:pattern value="MAD"/>
+     </xs:restriction>
+     </xs:simpleType> 
+      </xs:attribute>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Garanties-Client">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="Garantie-C" maxOccurs="unbounded"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Garantie-C">
+    <xs:complexType>
+      <xs:attribute name="id" use="required">
+      <xs:simpleType>
+      <xs:restriction base="xs:string">
+      <xs:pattern value="f[0-9]n[0-9]+(p[0-9]+)?g[0-9]+"/>
+      </xs:restriction>
+      </xs:simpleType>
+      </xs:attribute>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Assur-O">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="Date-Naissance" >
+         <xs:simpleType>
+         <xs:restriction base="xs:date">
+            <xs:minExclusive value="1950-06-26"/>
+            <xs:maxExclusive value="2000-06-26"/>
+           </xs:restriction>      
+      </xs:simpleType>        
+        </xs:element>
+        <xs:element ref="Autres-Ben"/>
+        <xs:element ref="Franchise"/>
+        <xs:element ref="Plafond"/>
+        <xs:element ref="Questionnaire-Med"/>
+        <xs:element ref="Garanties-Client"/>
+      </xs:sequence>
+      <xs:attribute name="id"  use="required">
+      <xs:simpleType>
+      <xs:restriction base="xs:string">
+      <xs:pattern value="f1n[2-3]"/>
+      </xs:restriction>
+      </xs:simpleType>
+      </xs:attribute>
+      <xs:attribute name="nom" type="xs:string" use="required"/>
+      <xs:attribute name="date-effet" type="xs:date" use="required"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Autres-Ben">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="Conjoint"/>
+        <xs:element ref="Enfants"/>
+      </xs:sequence>
+      <xs:attribute name="Conjoint" type="xs:string" use="required"/>
+      <xs:attribute name="Enfants" type="xs:string" use="required"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Conjoint">
+    <xs:complexType>
+       <xs:attribute name="CIN"  use="required">
+      <xs:simpleType>
+      <xs:restriction base="xs:string">
+      <xs:pattern value="[A-Z][A-Z0-9]?[0-9]+"/>
+      </xs:restriction>
+      </xs:simpleType>
+      </xs:attribute>
+      <xs:attribute name="date-Naissance"  use="required">
+      <xs:simpleType>
+         <xs:restriction base="xs:date">
+            <xs:minExclusive value="1950-06-26"/>
+            <xs:maxExclusive value="2000-06-26"/>
+           </xs:restriction>      
+      </xs:simpleType>
+      </xs:attribute>
+      <xs:attribute name="nom" type="xs:string" use="required"/>
+      <xs:attribute name="prenom" type="xs:string" use="required"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Enfants">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="Enfant" maxOccurs="unbounded"/>
+      </xs:sequence>
+      <xs:attribute name="nbr" type="xs:integer" use="required"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Enfant">
+    <xs:complexType>
+      <xs:attribute name="date-Naissance"  use="required">
+      <xs:simpleType>
+         <xs:restriction base="xs:date">
+            <xs:minExclusive value="2004-06-26"/>
+         </xs:restriction>        
+        </xs:simpleType>
+      </xs:attribute>
+      <xs:attribute name="nom" type="xs:string" use="required"/>
+      <xs:attribute name="prenom" type="xs:string" use="required"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Franchise">
+    <xs:complexType>
+      <xs:attribute name="devise"   use="required">
+      <xs:simpleType>
+      <xs:restriction base="xs:string">
+      <xs:pattern value="MAD"/>
+      </xs:restriction>
+      </xs:simpleType>
+      </xs:attribute>
+      <xs:attribute name="valeur"  use="required">
+      <xs:simpleType>
+     <xs:restriction base="xs:float">
+     <xs:enumeration value="0"/>
+     <xs:enumeration value="3500"/>
+     <xs:enumeration value="7000"/>
+     <xs:enumeration value="15000"/>
+     <xs:enumeration value="50000"/>
+     </xs:restriction> 
+      </xs:simpleType>
+      </xs:attribute>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Plafond">
+    <xs:complexType>
+      <xs:attribute name="devise"  use="required">
+      <xs:simpleType>
+     <xs:restriction base="xs:string">
+     <xs:pattern value="1000000 MAD"/>
+     </xs:restriction>
+     </xs:simpleType>
+      </xs:attribute>
+      <xs:attribute name="valeur"  use="required">
+     <xs:simpleType>
+       <xs:restriction base="xs:float">
+          <xs:enumeration value="2.5"/>
+          <xs:enumeration value="7.5"/>       
+       </xs:restriction>      
+      </xs:simpleType>     
+      </xs:attribute>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Questionnaire-Med">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="fumeur"/>
+        <xs:element ref="Operat-Chirurig-2-ans-Avant"/>
+        <xs:element ref="Maladie-Chronique"/>
+        <xs:element ref="Alergies"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="fumeur">
+    <xs:complexType>
+     <xs:attribute name="statut" use="required">
+     <xs:simpleType>
+        <xs:restriction base="xs:string">
+        <xs:pattern value="([Oo][Uu][Ii])|([Nn][Oo][Nn])"/>
+        </xs:restriction>        
+        </xs:simpleType>
+     </xs:attribute>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Operat-Chirurig-2-ans-Avant">
+    <xs:complexType>
+      <xs:attribute name="statut" type="xs:string" use="required"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Maladie-Chronique">
+    <xs:complexType>
+      <xs:attribute name="statut"  use="required">
+     <xs:simpleType>
+        <xs:restriction base="xs:string">
+        <xs:pattern value="([Oo][Uu][Ii])|([Nn][Oo][Nn])"/>
+        </xs:restriction>        
+        </xs:simpleType> 
+      </xs:attribute>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Alergies">
+    <xs:complexType>
+      <xs:attribute name="statut"  use="required">
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+        <xs:pattern value="([Oo][Uu][Ii])|([Nn][Oo][Nn])"/>
+        </xs:restriction>        
+        </xs:simpleType>
+      </xs:attribute>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Assur-A">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="Carte-Grise"/>
+        <xs:element ref="Conduct-Habituel"/>
+        <xs:element ref="Vehicule"/>
+        <xs:element ref="Garanties-Client"/>
+      </xs:sequence>
+      <xs:attribute name="id" type="xs:string" use="required"/>
+      <xs:attribute name="nom" type="xs:string" use="required"/>
+      <xs:attribute name="date-effet" type="xs:date" use="required"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Carte-Grise">
+    <xs:complexType>
+       <xs:attribute name="CIN"  use="required">
+      <xs:simpleType>
+      <xs:restriction base="xs:string">
+      <xs:pattern value="[A-Z][A-Z0-9]?[0-9]+"/>
+      </xs:restriction>
+      </xs:simpleType>
+      </xs:attribute>
+      <xs:attribute name="Nom" type="xs:string" use="required"/>
+      <xs:attribute name="Prenom" type="xs:string" use="required"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Conduct-Habituel">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="Nom" type="xs:string"/>
+        <xs:element name="Prenom" type="xs:string"/>
+        <xs:element name="CIN">
+      <xs:simpleType>
+      <xs:restriction base="xs:string">
+      <xs:pattern value="[A-Z][A-Z0-9]?[0-9]+"/>
+      </xs:restriction>
+      </xs:simpleType>
+        </xs:element>
+        <xs:element name="Sexe" >
+        <xs:simpleType>
+        <xs:restriction base="xs:string">
+        <xs:pattern value="(M|m)|(F|f)"/>
+        </xs:restriction>
+        </xs:simpleType>
+        </xs:element>
+        <xs:element name="Date-Naissance" >
+        <xs:simpleType>
+        <xs:restriction base="xs:date">
+        <xs:maxExclusive value="2002-02-09"/>
+        </xs:restriction>
+        </xs:simpleType>
+        </xs:element>
+        <xs:element name="Profession" type="xs:string"/>
+        <xs:element name="Ville-Res" type="xs:string"/>
+        <xs:element name="N-Permis" >
+        <xs:simpleType>
+        <xs:restriction base="xs:string">
+        <xs:pattern value="[0-9][0-9]/[0-9][0-9][0-9][0-9][0-9][0-9]"/>
+        </xs:restriction>
+        </xs:simpleType>
+        </xs:element>
+        <xs:element name="Categ-Permis">
+        <xs:simpleType>
+        <xs:restriction base="xs:string">
+        <xs:pattern value="[A-D]"/>
+        </xs:restriction>
+        </xs:simpleType>
+        </xs:element>
+        <xs:element name="date-Delivrance" type="xs:date"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Vehicule">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="Marque" >
+       <xs:simpleType>
+       <xs:restriction base="xs:string">
+       <xs:pattern value="AUDI|BMWBENTLEY|BERTONE|CHEVROLET|CITROEN|DS|FIAT|FORD|HONDA|OPEL|PEUGEOT|RENAULT|SEAT|TOYOTA|VOLVO"/>
+       </xs:restriction>
+       </xs:simpleType> 
+        </xs:element>
+        <xs:element name="type" >
+        <xs:simpleType>
+        <xs:restriction base="xs:string">
+        <xs:pattern value="A1|A1 II|A3 *|A3 SPORTBACK|A4|S3 SPORTBACK|S7 II|R[3-8]|BERLINGO II|C ELYSEE|NÉMO|DUCATO|DOBLO|UNO|CLIO IV|MASTER III"/>
+        </xs:restriction>
+        </xs:simpleType>
+        </xs:element>
+        <xs:element name="Carrosserie" type="xs:string"/>
+        <xs:element name="Immatricul">
+        <xs:simpleType>
+        <xs:restriction base="xs:string">
+        <xs:pattern value="[0-9][0-9][0-9][0-9][A-B]([0-9]|[1-8][0-7])"/>
+        </xs:restriction>
+        </xs:simpleType>
+        </xs:element>
+        <xs:element name="Puissance" >
+        <xs:simpleType>
+        <xs:restriction base="xs:integer">
+        <xs:maxInclusive value="15"/>
+        <xs:minInclusive  value="1"/>
+        </xs:restriction>
+        </xs:simpleType>
+        </xs:element>
+        <xs:element name="Carburant" >
+        <xs:simpleType>
+        <xs:restriction base="xs:string">
+        <xs:enumeration value="Essence"/>
+        <xs:enumeration value="Gasoil"/>
+        <xs:enumeration value="Gpl"/>
+        <xs:enumeration value="Electrique"/>
+        </xs:restriction>
+        </xs:simpleType>
+        </xs:element>
+        <xs:element name="Usage">
+        <xs:simpleType>
+        <xs:restriction base="xs:string">
+        <xs:enumeration value="Vie Prive"/>
+        <xs:enumeration value="Vie Prive + trajet domicile/travail"/>
+        <xs:enumeration value="Vie Prive + affaires"/>
+        <xs:enumeration value="Tous deplacements"/>
+        <xs:enumeration value="Agricole"/>
+        </xs:restriction>
+        </xs:simpleType>
+        </xs:element>
+        <xs:element name="Parking" >
+        <xs:simpleType>
+        <xs:restriction base="xs:string">
+        <xs:enumeration value="Voie publique"/>
+        <xs:enumeration value="Terrain, parking collectif privé clos"/>
+        <xs:enumeration value="Garage, box privé clos"/>
+        </xs:restriction>
+        </xs:simpleType>
+        </xs:element>
+        <xs:element name="Bareme-Conventionnel" >
+        <xs:simpleType>
+        <xs:restriction base="xs:string">
+        <xs:pattern value="([Oo][Uu][Ii])|([Nn][Oo][Nn])"/>
+        </xs:restriction>
+        </xs:simpleType>        
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

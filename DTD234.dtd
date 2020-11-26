@@ -1,0 +1,156 @@
+<!ELEMENT SAHAM (Agences, Familles, Assurances, Clients)>
+<!ELEMENT Agences (Agence+)>
+<!ELEMENT Agence (Agence-Nom, Agence-Adresse, mail, mobile*, Ville, Longtitude?, Latitude?, Horaires?)>
+<!ELEMENT Agence-Nom (#PCDATA)>
+<!ELEMENT Agence-Adresse (#PCDATA)>
+<!ELEMENT mail (#PCDATA)>
+<!ELEMENT mobile (#PCDATA)>
+<!ELEMENT Ville (#PCDATA)>
+<!ELEMENT Longtitude (#PCDATA)>
+<!ELEMENT Latitude (#PCDATA)>
+<!ELEMENT Horaires (Horaire+)>
+<!ELEMENT Horaire (firstPeriod, secondPeriod?)>
+<!ATTLIST Horaire
+          periode CDATA #REQUIRED>
+<!ELEMENT firstPeriod (#PCDATA)>
+<!ATTLIST firstPeriod
+          end CDATA #REQUIRED
+          start CDATA #REQUIRED>
+<!ELEMENT secondPeriod (#PCDATA)>
+<!ATTLIST secondPeriod
+          end CDATA #REQUIRED
+          start CDATA #REQUIRED>
+<!ELEMENT Familles (family+)>
+<!ELEMENT family (#PCDATA)>
+<!ATTLIST family
+          id ID #REQUIRED
+          name CDATA #REQUIRED>
+<!ELEMENT Assurances (Assur-Comp, Assur+)>
+<!ELEMENT Assur-Comp (Assur-Partielle-Offre+)>
+<!ATTLIST Assur-Comp
+          codeF CDATA #REQUIRED
+          famille CDATA #REQUIRED
+          id ID #REQUIRED
+          name CDATA #REQUIRED>
+<!ELEMENT Assur-Partielle-Offre (Descp, Packet-Garanties, Packet-Avantages)>
+<!ATTLIST Assur-Partielle-Offre
+          id ID #REQUIRED
+          titre CDATA #REQUIRED>
+<!ELEMENT Descp (#PCDATA)>
+<!ELEMENT Packet-Garanties (Garantie+)>
+<!ELEMENT Garantie (#PCDATA)>
+<!ATTLIST Garantie
+          id ID #REQUIRED
+          titre CDATA #REQUIRED>
+<!ELEMENT Packet-Avantages (Avantage+)>
+<!ELEMENT Avantage (#PCDATA)>
+<!ATTLIST Avantage
+          id ID #REQUIRED
+          titre CDATA #REQUIRED>
+<!ELEMENT Assur (Descp, Packet-Garanties?, Packet-Avantages)>
+<!ATTLIST Assur
+          codeF CDATA #REQUIRED
+          famille CDATA #REQUIRED
+          id ID #REQUIRED
+          name CDATA #REQUIRED>
+<!ELEMENT Clients (Client+)>
+<!ELEMENT Client (date-Naiss, nom, Prenom, Sexe, Code-Postal, Assurances-offertes)>
+<!ATTLIST Client
+          CIN ID #REQUIRED
+          Num_Police CDATA #REQUIRED>
+<!ELEMENT date-Naiss (#PCDATA)>
+<!ELEMENT nom (#PCDATA)>
+<!ELEMENT Prenom (#PCDATA)>
+<!ELEMENT Sexe (#PCDATA)>
+<!ELEMENT Code-Postal (#PCDATA)>
+<!ELEMENT Assurances-offertes (Assur-A?,Assur-H?,Assur-O?)>
+<!ELEMENT Assur-H (Nature-Habitation, Type-Residence, Valeur-Batiment, Valeur-Contenu, Garanties-Client)>
+<!ATTLIST Assur-H
+          id CDATA #REQUIRED
+          nom CDATA #REQUIRED
+          date-effet CDATA #REQUIRED >
+<!ELEMENT Nature-Habitation (#PCDATA)>
+<!ELEMENT Type-Residence (#PCDATA)>
+<!ELEMENT Valeur-Batiment (#PCDATA)>
+<!ATTLIST Valeur-Batiment
+          devise CDATA #REQUIRED>
+<!ELEMENT Valeur-Contenu (#PCDATA)>
+<!ATTLIST Valeur-Contenu
+          devise CDATA #REQUIRED>
+<!ELEMENT Garanties-Client (Garantie-C+)>
+<!ELEMENT Garantie-C (#PCDATA)>
+<!ATTLIST Garantie-C
+          id CDATA #REQUIRED>
+<!ELEMENT Assur-O (Date-Naissance, Autres-Ben, Franchise, Plafond, Questionnaire-Med, Garanties-Client)>
+<!ATTLIST Assur-O
+          id CDATA #REQUIRED
+          nom CDATA #REQUIRED
+          date-effet CDATA #REQUIRED >
+<!ELEMENT Date-Naissance (#PCDATA)>
+<!ELEMENT Autres-Ben (Conjoint, Enfants)>
+<!ATTLIST Autres-Ben
+          Conjoint CDATA #REQUIRED
+          Enfants CDATA #REQUIRED>
+<!ELEMENT Conjoint (#PCDATA)>
+<!ATTLIST Conjoint
+          CIN CDATA #REQUIRED
+          date-Naissance CDATA #REQUIRED
+          nom CDATA #REQUIRED
+          prenom CDATA #REQUIRED>
+<!ELEMENT Enfants (Enfant+)>
+<!ATTLIST Enfants
+          nbr CDATA #REQUIRED>
+<!ELEMENT Enfant (#PCDATA)>
+<!ATTLIST Enfant
+          date-Naissance CDATA #REQUIRED
+          nom CDATA #REQUIRED
+          prenom CDATA #REQUIRED>
+<!ELEMENT Franchise (#PCDATA)>
+<!ATTLIST Franchise
+          devise CDATA #REQUIRED
+          valeur CDATA #REQUIRED>
+<!ELEMENT Plafond (#PCDATA)>
+<!ATTLIST Plafond
+          devise CDATA #REQUIRED
+          valeur CDATA #REQUIRED>
+<!ELEMENT Questionnaire-Med (fumeur, Operat-Chirurig-2-ans-Avant, Maladie-Chronique, Alergies)>
+<!ELEMENT fumeur (#PCDATA)>
+<!ATTLIST fumeur
+          statut CDATA #REQUIRED>
+<!ELEMENT Operat-Chirurig-2-ans-Avant (#PCDATA)>
+<!ATTLIST Operat-Chirurig-2-ans-Avant
+          statut CDATA #REQUIRED>
+<!ELEMENT Maladie-Chronique (#PCDATA)>
+<!ATTLIST Maladie-Chronique
+          statut CDATA #REQUIRED>
+<!ELEMENT Alergies (#PCDATA)>
+<!ATTLIST Alergies
+          statut CDATA #REQUIRED>
+<!ELEMENT Assur-A (Carte-Grise, Conduct-Habituel, Vehicule, Garanties-Client)>
+<!ATTLIST Assur-A
+          id CDATA #REQUIRED
+          nom CDATA #REQUIRED
+          date-effet CDATA #REQUIRED >
+<!ELEMENT Carte-Grise (#PCDATA)>
+<!ATTLIST Carte-Grise
+          CIN CDATA #REQUIRED
+          Nom CDATA #REQUIRED
+          Prenom CDATA #REQUIRED>
+<!ELEMENT Conduct-Habituel (Nom, Prenom, CIN, Sexe, Date-Naissance, Profession, Ville-Res, N-Permis, Categ-Permis, date-Delivrance)>
+<!ELEMENT Nom (#PCDATA)>
+<!ELEMENT CIN (#PCDATA)>
+<!ELEMENT Profession (#PCDATA)>
+<!ELEMENT Ville-Res (#PCDATA)>
+<!ELEMENT N-Permis (#PCDATA)>
+<!ELEMENT Categ-Permis (#PCDATA)>
+<!ELEMENT date-Delivrance (#PCDATA)>
+<!ELEMENT Vehicule (Marque, type, Carrosserie, Immatricul, Puissance, Carburant, Usage, Parking, Bareme-Conventionnel)>
+<!ELEMENT Marque (#PCDATA)>
+<!ELEMENT type (#PCDATA)>
+<!ELEMENT Carrosserie (#PCDATA)>
+<!ELEMENT Immatricul (#PCDATA)>
+<!ELEMENT Puissance (#PCDATA)>
+<!ELEMENT Carburant (#PCDATA)>
+<!ELEMENT Usage (#PCDATA)>
+<!ELEMENT Parking (#PCDATA)>
+<!ELEMENT Bareme-Conventionnel (#PCDATA)>
